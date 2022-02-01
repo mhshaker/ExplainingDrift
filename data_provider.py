@@ -3,18 +3,20 @@ from classes.amazon_pickle_reader import AmazonPickleReader
 
 def load_data(data_address):
     data = AmazonPickleReader(data_address)
-    features = data.get_all_bow50()["data"][0]
-    targets  = np.array(data.get_all_bow50()["data"][1])[:,[1, 4]]
-    print(features.shape)
-    print(targets.shape)
+    features = data.get_all_bow50()["data"][0] # 0 gives the embeddings and 1 gives the metadata
+    targets  = np.array(data.get_all_bow50()["data"][1])[:,[1, 4]] # colomn index 1 is the class labels and colomn index 4 the text keys
+    return features, targets.astype(int)
 
-    d = data.get_bow50(84090, metadata=True)
-    print("------------------------------------")
-    for i in range(10):
-        print(targets[i])
-    print("done")
-    return features, targets
+def partition_data(features, targets, partition_number):
+    features_list = []
+    targets_list = []
 
+    partition_len = int(len(features) / partition_number)
+
+    for i in range(partition_number):
+        features_list.append(features[i*partition_len: (i+1) * partition_len])
+        targets_list.append(targets[i*partition_len: (i+1) * partition_len])
+    return features_list, targets_list
 
 
 # Code for loading 1 star 5 star toy data
