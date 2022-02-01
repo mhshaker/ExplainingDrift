@@ -5,18 +5,21 @@ def load_data(data_address):
     data = AmazonPickleReader(data_address)
     features = data.get_all_bow50()["data"][0] # 0 gives the embeddings and 1 gives the metadata
     targets  = np.array(data.get_all_bow50()["data"][1])[:,[1, 4]] # colomn index 1 is the class labels and colomn index 4 the text keys
-    return features, targets.astype(int)
+    texts    = data.get_all_raw()[0]
+    return features, targets.astype(int), texts
 
-def partition_data(features, targets, partition_number):
+def partition_data(features, targets, texts, partition_number):
     features_list = []
     targets_list = []
+    text_list = []
 
     partition_len = int(len(features) / partition_number)
 
     for i in range(partition_number):
         features_list.append(features[i*partition_len: (i+1) * partition_len])
         targets_list.append(targets[i*partition_len: (i+1) * partition_len])
-    return features_list, targets_list
+        text_list.append(texts[i*partition_len: (i+1) * partition_len])
+    return features_list, targets_list, text_list
 
 
 # Code for loading 1 star 5 star toy data

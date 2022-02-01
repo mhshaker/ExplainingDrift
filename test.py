@@ -1,4 +1,7 @@
-import data_provider as dp
+a = [1,2,3]
+b = [5,6,7]
 
-features, targets = dp.load_data("./Data/")
-features_list, targets_list = dp.partition_data(features, targets,10)
+for index,(i,j) in enumerate(zip(a,b)):
+    print(i)
+    print(j)
+    print("------------------------------------ ", index)
