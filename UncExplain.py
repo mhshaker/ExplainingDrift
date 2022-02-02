@@ -10,7 +10,7 @@ from classes.wordclouds import Wordcloud
 from wordcloud import STOPWORDS
 
 ########################################## parameters
-episodes = 10
+episodes = 100
 test_split = 0.3
 log = True
 unc_plot = False
@@ -71,3 +71,4 @@ for episode, (features, targets, texts) in enumerate(zip(features_list, targets_
     wordcloud.plot(cloud, f"low_epist_e{episode}")
     if log:
         print("Low epist : ", epistemic_uncertainty[-10:])
+    
