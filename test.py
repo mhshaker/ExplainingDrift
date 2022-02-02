@@ -1,18 +1,26 @@
-from collections import Counter
-import pandas as pd
-a = Counter({'menu': 20, 'good': 15, 'tits': 85, 'bar': 5})
-b = Counter({'menu': 1, 'good': 1, 'bar': 3})
+import matplotlib.pyplot as plt
+import numpy as np
 
-print(a["menu"])
+# Some example data to display
+x = np.linspace(0, 2 * np.pi, 400)
+y = np.sin(x ** 2)
 
+x_test = [0,0]
 
-# a_df = pd.DataFrame.from_dict(a, orient='index').reset_index()
-# b_df = pd.DataFrame.from_dict(b, orient='index').reset_index()
+fig, axs = plt.subplots(2, 2)
+axs[0][0].plot(x, y)
+axs[0, 0].set_title('Axis [0, 0]')
+axs[0, 1].plot(x, y, 'tab:orange')
+axs[0, 1].set_title('Axis [0, 1]')
+axs[1, 0].plot(x, -y, 'tab:green')
+axs[1, 0].set_title('Axis [1, 0]')
+axs[1, 1].plot(x, -y, 'tab:red')
+axs[1, 1].set_title('Axis [1, 1]')
 
-# print(a_df)
-# print("------------------------------------")
-# print(b_df)
-# print("------------------------------------")
-# print("------------------------------------")
-# c_df = a_df + b_df
-# print(c_df)
+for ax in axs.flat:
+    ax.set(xlabel='x-label', ylabel='y-label')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
+plt.savefig(f"./Results/test.png")

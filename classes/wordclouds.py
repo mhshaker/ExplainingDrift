@@ -67,18 +67,26 @@ class Wordcloud:
 
         return WordCloud(**parameters).generate_from_frequencies(counts)
     
-    def plot(self, wordcloud, file_name="wordcloud", figsize=[4.0, 2.25], dpi=150):
+    def plot(self, wordcloud, file_name="wordcloud", figsize=[4.0, 2.25], dpi=150, axs=-1, axs_index=-1):
         # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html
         # matplotlib.pyplot.figure: figsize(float, float), default: rcParams["figure.figsize"] (default: [6.4, 4.8])
         # print(16/4, 9/4) # 4.0 2.25 # small for jupyter notebools
         # print(16/2, 9/2) # 8.0 4.5  # large for external use
-        plt.rcParams['figure.figsize'] = figsize
+        if axs_index==-1:
+            plt.rcParams['figure.figsize'] = figsize
 
-        # matplotlib.pyplot.figure: dpifloat, default: rcParams["figure.dpi"] (default: 100.0)
-        plt.rcParams['figure.dpi'] = dpi
+            # matplotlib.pyplot.figure: dpifloat, default: rcParams["figure.dpi"] (default: 100.0)
+            plt.rcParams['figure.dpi'] = dpi
 
-        # https://amueller.github.io/word_cloud/auto_examples/simple.html#sphx-glr-auto-examples-simple-py
-        plt.figure()
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")
-        plt.savefig(f"./Results/{file_name}.png")
+            # https://amueller.github.io/word_cloud/auto_examples/simple.html#sphx-glr-auto-examples-simple-py
+            plt.figure()
+            plt.imshow(wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(f"./Results/{file_name}.png")
+        else:
+            # axs[axs_index].rcParams['figure.figsize'] = figsize
+            # axs[axs_index].rcParams['figure.dpi'] = dpi
+            axs[axs_index[0]][axs_index[1]].imshow(wordcloud, interpolation="bilinear")
+            axs[axs_index[0]][axs_index[1]].axis("off")
+            axs[axs_index[0]][axs_index[1]].set_title('Axis [0, 0]')
+            return axs
