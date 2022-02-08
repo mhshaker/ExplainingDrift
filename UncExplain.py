@@ -10,9 +10,9 @@ from classes.wordclouds import Wordcloud
 from wordcloud import STOPWORDS
 
 episodes = 20
-unc_embeddings = 100
+unc_embeddings = 10000
 test_split = 0.3
-log = True
+log = False
 unc_plot = False
 seed = 1
 
